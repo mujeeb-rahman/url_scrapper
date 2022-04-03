@@ -1,0 +1,22 @@
+service: Url-Scrapper
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stackName: urlScrapper
+  stage: dev
+  region: ap-south-1
+
+
+functions:
+  GetMetadata:
+    handler: handler.getOgMetadata
+    description: Submit webpage URL and get og metadada.
+
+    events:
+     - http:
+        path: api/get-metadata
+        method: post
+        cors: true

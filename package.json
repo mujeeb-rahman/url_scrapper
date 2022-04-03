@@ -1,0 +1,17 @@
+{
+  "name": "url_scrapper",
+  "version": "1.0.0",
+  "description": "To get OG/meta data from given URL",
+  "main": "handler.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Mujeeb Rahman",
+  "license": "ISC",
+  "dependencies": {
+    "html-metadata-parser": "^2.0.4"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1"
+  }
+}

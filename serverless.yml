@@ -1,4 +1,4 @@
-service: Url-Scrapper
+service: url-scrapper
 
 frameworkVersion: '3'
 
@@ -9,6 +9,48 @@ provider:
   stage: dev
   region: ap-south-1
 
+plugins:
+  - serverless-aws-documentation
+
+custom: 
+  documentation:
+    api:
+      info:
+        version: '1.0.0'
+        title: Get open grapgh parameters
+        description: “Get OG parameter values from given URL if its valid otherwise get meta data.”
+
+    models:     
+      -
+        name: "GetMetadata"
+        description: "GetMetadata post object"
+        contentType: "application/json"
+        schema:
+          type: "object"
+          properties:
+            url:
+              type: "string" 
+      -
+        name: "GetMetadataResponse"
+        description: "GetMetadata post object"
+        contentType: "application/json"
+        schema:
+          type: "object"
+          properties:
+            body:
+              type: "string"
+            statusCode:
+              type: number
+      -              
+        name: ErrorResponse
+        contentType: "application/json"
+        schema:
+          type: object
+          properties:
+            body:
+              type: string
+            statusCode:
+              type: number             
 
 functions:
   GetMetadata:
@@ -20,3 +62,25 @@ functions:
         path: api/get-metadata
         method: post
         cors: true
+        documentation:
+            summary: "POST get-metadata"
+            description: "POST will return the response based on the given URL"
+            tags:
+              - GetMetadata
+            method: post
+            path: api/get-metadata
+            requestModels:
+              "application/json": "GetMetadata"
+            methodResponses:
+              -
+                statusCode: "200"
+                responseModels:
+                  "application/json": "GetMetadataResponse"            
+              -
+                statusCode: "400"
+                responseModels:
+                  "application/json": "ErrorResponse"   
+              -
+                statusCode: "404"
+                responseModels:
+                  "application/json": "ErrorResponse"
